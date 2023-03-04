@@ -1,5 +1,5 @@
 {
-  "name": "samplevue_project",
+  "name": "document-scanner-fe",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "bootstrap": "^5.2.3",
     "jquery": "^3.6.3",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"
