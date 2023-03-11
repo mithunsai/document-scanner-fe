@@ -36,8 +36,7 @@
       <SelectImages @setimages="setImages"></SelectImages>
     </div>
     <div
-      class="pb-5"
-      v-show="buttonSelected === 'preview' && images.length > 0"
+      v-show="buttonSelected === 'preview'"
     >
       <PreviewImages :images="images"></PreviewImages>
     </div>

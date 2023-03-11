@@ -14,6 +14,12 @@
         @click="removeImage(index)"
       ></span>
     </div>
+    <div class="" v-if="imagesComp.length <= 0">
+      <p class="text-center ">
+        <i class="fa-solid fa-face-frown fs-3 me-2"></i>There are no images selected. Please select images to
+        Preview
+      </p>
+    </div>
   </div>
 </template>
 <script setup>
