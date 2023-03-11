@@ -13,7 +13,7 @@
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(["setimages"]);
+const emit = defineEmits(["set-images"]);
 var images = ref([]);
 
 const imageSelect = (fileData) => {
@@ -63,6 +63,6 @@ const selectImages = async () => {
     imageSelect(fileData);
   }
 
-  emit("setimages", images.value);
+  emit("set-images", images.value);
 };
 </script>

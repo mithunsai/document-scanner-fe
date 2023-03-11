@@ -33,12 +33,13 @@
       </button>
     </div>
     <div v-show="buttonSelected === 'select'">
-      <SelectImages @setimages="setImages"></SelectImages>
+      <SelectImages @set-images="setImages"></SelectImages>
     </div>
-    <div
-      v-show="buttonSelected === 'preview'"
-    >
-      <PreviewImages :images="images"></PreviewImages>
+    <div v-show="buttonSelected === 'preview'">
+      <PreviewImages :images="images" @remove-image="removeImage(index)"></PreviewImages>
+    </div>
+    <div v-show="buttonSelected === 'convert'">
+      <ConvertToPdf :images="images"></ConvertToPdf>
     </div>
   </div>
 </template>
@@ -46,11 +47,13 @@
 import { ref } from "vue";
 import SelectImages from "../components/SelectImages.vue";
 import PreviewImages from "../components/PreviewImages.vue";
+import ConvertToPdf from "../components/ConvertToPdf.vue";
 export default {
   name: "ImgToPdf",
   components: {
     SelectImages,
     PreviewImages,
+    ConvertToPdf,
   },
 
   setup() {
@@ -77,11 +80,16 @@ export default {
       buttonSelected.value = "preview";
     };
 
+    const removeImage= (index)=>{
+      images.value.splice(index,1)
+    }
+
     return {
       selectImages,
       previewImages,
       convertToPDF,
       setImages,
+      removeImage,
       buttonSelected,
       images,
       imgWidth,

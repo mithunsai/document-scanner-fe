@@ -15,9 +15,9 @@
       ></span>
     </div>
     <div class="" v-if="imagesComp.length <= 0">
-      <p class="text-center ">
-        <i class="fa-solid fa-face-frown fs-3 me-2"></i>There are no images selected. Please select images to
-        Preview
+      <p class="text-center">
+        <i class="fa-solid fa-face-frown fs-3 me-2"></i>There are no images
+        selected. Please select images to Preview
       </p>
     </div>
   </div>
@@ -26,11 +26,12 @@
 import { computed } from "vue";
 
 const props = defineProps(["images"]);
+const emit = defineEmits(["remove-image"]);
 const imagesComp = computed(() => {
   return props.images;
 });
 const removeImage = (index) => {
-  props.images.splice(index, 1);
+  emit("remove-image", index);
 };
 </script>
 <style>
