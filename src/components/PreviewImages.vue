@@ -8,10 +8,10 @@
         alt="Image"
         class="me-1 mb-1"
       />
-
       <span
         class="fa-sharp fa-solid fa-circle-xmark position-absolute top-0 end-0 translate-middle-y fs-4 mouse-pointer"
         aria-hidden="true"
+        @click="removeImage(index)"
       ></span>
     </div>
   </div>
@@ -23,6 +23,9 @@ const props = defineProps(["images"]);
 const imagesComp = computed(() => {
   return props.images;
 });
+const removeImage = (index) => {
+  props.images.splice(index, 1);
+};
 </script>
 <style>
 .imgDim {
