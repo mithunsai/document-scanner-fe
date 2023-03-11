@@ -33,33 +33,35 @@
       </button>
     </div>
     <div v-show="buttonSelected === 'select'">
-      <SelectImages @setImgSrcs="setImageSources"></SelectImages>
+      <SelectImages @setimages="setImages"></SelectImages>
     </div>
     <div
       class="pb-5"
-      v-show="buttonSelected === 'preview' && imgSrcs.length > 0"
+      v-show="buttonSelected === 'preview' && images.length > 0"
     >
-      <img :src="imgSrc" alt="Image" class="imgDim" v-for="imgSrc in imgSrcs" />
+      <PreviewImages :images="images"></PreviewImages>
     </div>
   </div>
 </template>
 <script>
 import { ref } from "vue";
 import SelectImages from "../components/SelectImages.vue";
+import PreviewImages from "../components/PreviewImages.vue";
 export default {
   name: "ImgToPdf",
   components: {
     SelectImages,
+    PreviewImages,
   },
 
   setup() {
-    var imgSrcs = ref([]);
+    var images = ref([]);
     var imgWidth = ref(0);
     var imgHeight = ref(0);
 
     var buttonSelected = ref("select");
 
-    var selectImages = async (event) => {
+    var selectImages = async () => {
       buttonSelected.value = "select";
     };
 
@@ -71,18 +73,18 @@ export default {
       buttonSelected.value = "convert";
     };
 
-    const setImageSources = (imageSources) => {
-      imgSrcs.value = imageSources;
-      buttonSelected.value= 'preview'
+    const setImages = (imagesSelected) => {
+      images.value = imagesSelected;
+      buttonSelected.value = "preview";
     };
 
     return {
       selectImages,
       previewImages,
       convertToPDF,
-      setImageSources,
+      setImages,
       buttonSelected,
-      imgSrcs,
+      images,
       imgWidth,
       imgHeight,
     };
@@ -92,9 +94,5 @@ export default {
 <style>
 .imgToPdf {
   padding: 5% 5%;
-}
-.imgDim {
-  width: 150px;
-  height: 200px;
 }
 </style>
