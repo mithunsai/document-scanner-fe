@@ -18,9 +18,21 @@
   </div>
 </template>
 <script setup>
-import appServices from '../services/AppServices';
-const props = defineProps(["images","imageFiles"]);
+import appServices from "../services/AppServices";
+const props = defineProps(["images", "imageFiles"]);
 const convertToPDF = () => {
-  console.log(props.imageFiles[0].name);
+  var formData = new FormData();
+  props.imageFiles.forEach(imageFile => {
+    formData.append("imageFiles",imageFile.file)
+  });
+  appServices
+    .uploadImages(formData)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally();
 };
 </script>

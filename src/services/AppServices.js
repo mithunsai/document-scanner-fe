@@ -1,9 +1,13 @@
 import axios from "axios";
 
 const appServices = {
-  uploadImages: (file) => {
+  uploadImages: (imageFiles) => {
     const url = "http://127.0.0.1:8000/uploadImages/";
-    return axios.post(url, { base64: file });
+    return axios.post(url, imageFiles, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 };
 
