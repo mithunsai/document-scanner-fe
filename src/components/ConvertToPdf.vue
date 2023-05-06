@@ -18,6 +18,9 @@
   </div>
 </template>
 <script setup>
-const props = defineProps(["images"]);
-const convertToPDF = () => {};
+import appServices from '../services/AppServices';
+const props = defineProps(["images","imageFiles"]);
+const convertToPDF = () => {
+  console.log(props.imageFiles[0].name);
+};
 </script>

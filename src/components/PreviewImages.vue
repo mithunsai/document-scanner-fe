@@ -25,13 +25,14 @@
 <script setup>
 import { computed } from "vue";
 
-const props = defineProps(["images"]);
-const emit = defineEmits(["remove-image"]);
+const props = defineProps(["images","imageFiles"]);
+const emit = defineEmits(["remove-image","remove-imageFiles"]);
 const imagesComp = computed(() => {
   return props.images;
 });
 const removeImage = (index) => {
   emit("remove-image", index);
+  emit("remove-imageFiles",index);
 };
 </script>
 <style>

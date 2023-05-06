@@ -33,13 +33,13 @@
       </button>
     </div>
     <div v-show="buttonSelected === 'select'">
-      <SelectImages @set-images="setImages"></SelectImages>
+      <SelectImages @set-images="setImages" @set-imageFiles="setImageFiles"></SelectImages>
     </div>
     <div v-show="buttonSelected === 'preview'">
-      <PreviewImages :images="images" @remove-image="removeImage(index)"></PreviewImages>
+      <PreviewImages :images="images" @remove-image="removeImage(index)" @remove-imageFiles="removeImageFiles(index)"></PreviewImages>
     </div>
     <div v-show="buttonSelected === 'convert'">
-      <ConvertToPdf :images="images"></ConvertToPdf>
+      <ConvertToPdf :images="images" :imageFiles="imageFiles"></ConvertToPdf>
     </div>
   </div>
 </template>
@@ -58,6 +58,7 @@ export default {
 
   setup() {
     var images = ref([]);
+    var imageFiles= ref([]);
     var imgWidth = ref(0);
     var imgHeight = ref(0);
 
@@ -80,8 +81,17 @@ export default {
       buttonSelected.value = "preview";
     };
 
+    const setImageFiles = (filesSelected) => {
+      imageFiles.value = filesSelected;
+      
+    }
+
     const removeImage= (index)=>{
       images.value.splice(index,1)
+    }
+
+    const removeImageFiles= (index)=>{
+      imageFiles.value.splice(index,1)
     }
 
     return {
@@ -89,9 +99,12 @@ export default {
       previewImages,
       convertToPDF,
       setImages,
+      setImageFiles,
       removeImage,
+      removeImageFiles,
       buttonSelected,
       images,
+      imageFiles,
       imgWidth,
       imgHeight,
     };

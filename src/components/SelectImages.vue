@@ -13,8 +13,9 @@
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(["set-images"]);
+const emit = defineEmits(["set-images", "set-imageFiles"]);
 var images = ref([]);
+var imageFiles = ref([]);
 
 const imageSelect = (fileData) => {
   const fileReader = new FileReader();
@@ -60,9 +61,12 @@ const selectImages = async () => {
   const fileHandle = await window.showOpenFilePicker(options);
   for (const file of fileHandle) {
     const fileData = await file.getFile();
+    imageFiles.value.push({ name: fileData.name, file: fileData });
     imageSelect(fileData);
   }
+  console.log(fileHandle);
 
   emit("set-images", images.value);
+  emit("set-imageFiles", imageFiles.value);
 };
 </script>
