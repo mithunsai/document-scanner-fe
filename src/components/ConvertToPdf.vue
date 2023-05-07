@@ -22,13 +22,16 @@ import appServices from "../services/AppServices";
 const props = defineProps(["images", "imageFiles"]);
 const convertToPDF = () => {
   var formData = new FormData();
-  props.imageFiles.forEach(imageFile => {
-    formData.append("imageFiles",imageFile.file)
+  props.imageFiles.forEach((imageFile) => {
+    formData.append("imageFiles", imageFile.file);
   });
   appServices
     .uploadImages(formData)
-    .then((response) => {
-      console.log(response);
+    .then(async (response) => {
+      const a = document.createElement("a");
+      a.href = "data:application/pdf;base64," + response.data;
+      a.download = "download.pdf";
+      a.click();
     })
     .catch((error) => {
       console.log(error);

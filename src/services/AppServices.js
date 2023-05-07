@@ -6,6 +6,7 @@ const appServices = {
     return axios.post(url, imageFiles, {
       headers: {
         "Content-Type": "multipart/form-data",
+        "Accept": "application/pdf"
       },
     });
   },
