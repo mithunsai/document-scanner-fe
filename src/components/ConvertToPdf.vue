@@ -1,19 +1,33 @@
 <template>
-  <div class="position-relative">
-    <div v-if="props.images.length > 0" class="pb-5">
-      <p class="text-center">Convert the selected images to PDF</p>
-      <button
-        class="btn btn-dark position-absolute top-50 start-50 translate-middle mt-3"
-        @click="convertToPDF()"
-      >
-        Convert to PDF
-      </button>
+  <div>
+    
+    <div class="position-relative mb-5">
+      <div v-if="props.images.length > 0" class="pb-5">
+        <p class="text-center">Convert the selected images to PDF</p>
+        <button
+          class="btn btn-dark position-absolute start-50 translate-middle mt-3"
+          @click="convertToPDF()"
+        >
+          Convert to PDF
+        </button>
+      </div>
+      <div class="" v-else>
+        <p class="text-center">
+          <i class="fa-solid fa-face-frown fs-3 me-2"></i>There are no images
+          selected. Please select images to Convert to PDF
+        </p>
+      </div>
     </div>
-    <div class="" v-else>
-      <p class="text-center">
-        <i class="fa-solid fa-face-frown fs-3 me-2"></i>There are no images
-        selected. Please select images to Convert to PDF
-      </p>
+    <div class="d-flex flex-wrap justify-content-center">
+      <div v-for="image in images">
+        <img
+          :src="image.src"
+          :width="image.width"
+          :height="image.height"
+          alt="Image"
+          class="me-1 mb-1"
+        />
+      </div>
     </div>
   </div>
 </template>
