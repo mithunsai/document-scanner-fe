@@ -10,5 +10,10 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server:{
+    proxy:{
+      '/uploadImages/':"https://document-scanner-be.onrender.com"
+    }
   }
 })
