@@ -34,7 +34,9 @@
 <script setup>
 import appServices from "../services/AppServices";
 const props = defineProps(["images", "imageFiles"]);
+const emit= defineEmits(["enableSpin",'converted'])
 const convertToPDF = () => {
+  emit("enableSpin", true)
   var formData = new FormData();
   props.imageFiles.forEach((imageFile) => {
     formData.append("imageFiles", imageFile.file);
@@ -46,10 +48,13 @@ const convertToPDF = () => {
       a.href = "data:application/pdf;base64," + response.data;
       a.download = "download.pdf";
       a.click();
+      emit('converted')
     })
     .catch((error) => {
       console.log(error);
     })
-    .finally();
+    .finally(()=>{
+      emit("enableSpin", false)
+    });
 };
 </script>
