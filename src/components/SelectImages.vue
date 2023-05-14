@@ -1,12 +1,8 @@
 <template>
   <div class="pb-5 position-relative">
     <p class="text-center">Select Images that you want to convert to PDF</p>
-    <button
-      class="btn btn-dark position-absolute top-50 start-50 translate-middle mt-3"
-      @click="selectImages()"
-    >
-      Select Images
-    </button>
+    <label for="select-images" class=" opacity-100 btn btn-dark position-absolute top-50 start-50 translate-middle mt-3">Select Images</label>
+    <input @change="selectImages($event)" id="select-images" class="invisible" type="file" accept="image/png, image/jpeg, image/jpg" multiple>
   </div>
 </template>
 
@@ -17,7 +13,7 @@ const emit = defineEmits(["set-images", "set-imageFiles"]);
 var images = ref([]);
 var imageFiles = ref([]);
 
-const imageSelect = (fileData) => {
+const imageSelect = (file) => {
   const fileReader = new FileReader();
   fileReader.addEventListener("load", (event) => {
     const img = new Image();
@@ -34,7 +30,7 @@ const imageSelect = (fileData) => {
       });
     }, 1);
   });
-  fileReader.readAsDataURL(fileData);
+  fileReader.readAsDataURL(file);
 };
 
 const getScalingFactor = (nW, nH) => {
@@ -44,27 +40,13 @@ const getScalingFactor = (nW, nH) => {
   return 350 / nH;
 };
 
-const selectImages = async () => {
-  images.value = [];
-  const options = {
-    types: [
-      {
-        description: "Images",
-        accept: {
-          "image/*": [".png", ".jpeg", ".jpg"],
-        },
-      },
-    ],
-    excludeAcceptAllOption: true,
-    multiple: true,
-  };
-  const fileHandle = await window.showOpenFilePicker(options);
-  for (const file of fileHandle) {
-    const fileData = await file.getFile();
-    imageFiles.value.push({ name: fileData.name, file: fileData });
-    imageSelect(fileData);
+const selectImages = async (event) => {
+  const files= event.target.files
+  for (const file of files) {
+    imageFiles.value.push({ name: file.name, file: file });
+    imageSelect(file);
   }
-  console.log(fileHandle);
+  console.log(files);
 
   emit("set-images", images.value);
   emit("set-imageFiles", imageFiles.value);
